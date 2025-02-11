@@ -1,0 +1,47 @@
+<p-card class="filters_card" header="Busca el alojamiento para tu proxima Aventura!!">
+    <form [formGroup]="filtersForm" class="form_filters">
+        <p-inputgroup>
+            <p-floatlabel variant="on">
+                <input pInputText id="city_location" formControlName="peopleCount" />
+                <label for="city_location">Ciudad Destino</label>
+            </p-floatlabel>
+            <p-inputgroup-addon>
+                <i class="pi pi-users"></i>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-inputgroup>
+            <p-floatlabel variant="on">
+                <p-datepicker
+                    class ="datePicker"
+                    formControlName="endDate"
+                    selectionMode="range"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    dateFormat="dd/mm/yy"
+                    inputId="range_date"
+                    [showIcon]="true"
+                    >
+                </p-datepicker>
+                <label for="range_date">Rango de fechas</label>
+            </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup>
+            <p-floatlabel variant="on">
+                <p-inputnumber 
+                    id="people_number"
+                    formControlName="peopleCount"
+                    [showButtons]="true"
+                    inputId="minmax"
+                    mode="decimal"
+                    [min]="0"
+                    [max]="100"
+                />
+                <label for="people_number">Cantidad de personas</label>
+            </p-floatlabel>
+            <p-inputgroup-addon>
+                <i class="pi pi-users"></i>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-button label="Buscar" icon="pi pi-search" variant="text" [raised]="true" />
+    </form>
+</p-card>
