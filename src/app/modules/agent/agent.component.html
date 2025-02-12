@@ -1,0 +1,16 @@
+<header>
+    <div class="card">
+        <p-menubar [model]="[]">
+            <ng-template #start>
+            <h3 routerLink="/">Agency Travel</h3>
+            </ng-template>
+            <ng-template #end>
+                <div class="flex flex-row gap-4 align-items-center">
+                    <p class="font-bold" >Hola, {{ user.name}} </p>
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
+                </div>
+            </ng-template>
+        </p-menubar>
+    </div>
+</header>
+<router-outlet></router-outlet>

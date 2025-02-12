@@ -1,0 +1,63 @@
+<div>
+    <form [formGroup]="hotelDataForm" class="form_filters formgrid grid row-gap-2 mt-2 px-4 mb-6 ">
+        <p-inputgroup class="col-12 h-3rem">
+            <p-inputgroup-addon>
+                <i class="pi pi-id-card"></i>
+            </p-inputgroup-addon>
+            <p-floatlabel variant="on">
+                <input pInputText id="firstName" formControlName="firstName" />
+                <label for="firstName">Nombre</label>
+            </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup class="col-12 h-3rem">
+            <p-inputgroup-addon>
+                <i class="pi pi-id-card"></i>
+            </p-inputgroup-addon>
+            <p-floatlabel variant="on">
+                <input pInputText id="firstName" formControlName="firstName" />
+                <label for="firstName">Dirección</label>
+            </p-floatlabel>
+        </p-inputgroup>
+        <div id="additional" class="col-12 grid h-3rem mt-3">
+            <p-inputgroup class="col-12 sm:col-12 md:col">
+                <p-inputgroup-addon>
+                    <i class="pi pi-user"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel variant="in">
+                    <p-select
+                        formControlName="city"
+                        placeholder=""
+                        optionLabel="name"
+                        [editable]="true"
+                        [options]="cities"
+                        [showClear]="true"
+                        [filter]="true"
+                        inputId="city" />
+                    <label for="city">Ciudad</label>
+                </p-floatlabel>
+            </p-inputgroup>
+            <div class="col-3 flex flex-column align-items-center">
+                <label>Estado</label>
+                <p-togglebutton
+                    formControlName="status"
+                    onLabel="Activo"
+                    [onIcon] = "'pi pi-sign-in'"
+                    offLabel="Inactivo"
+                    offIcon = "pi pi-power-off"
+                    styleClass="w-30"
+                    ariaLabel="Estado del hotel" />
+            </div>
+            <div class="col-3 flex flex-column align-items-center">
+                <label>Calificación</label>
+                <p-togglebutton
+                    formControlName="status"
+                    onLabel="Activo"
+                    [onIcon] = "'pi pi-sign-in'"
+                    offLabel="Inactivo"
+                    offIcon = "pi pi-power-off"
+                    styleClass="w-30"
+                    ariaLabel="Estado del hotel" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+<p-card class="grid m-2 px-2 py-2" styleClass="col-12">
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">
+                <i class="pi pi-home"></i>
+                <span>Hoteles</span>
+            </p-tab>
+            <p-tab value="1">
+                <i class="pi pi-list"></i>
+                <span>Reservas</span>
+            </p-tab>
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                <hotels-list></hotels-list>
+                <div class="flex mt-3 justify-content-end">
+                    <p-button
+                        label="Registrar Hotel"
+                        icon="pi pi-plus"
+                        (click)="registerHotel()"
+                        severity="success"
+                        rounded />
+                </div>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+            </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+</p-card>
+
+<p-dialog header="Registrar Nuevo Hotel" [modal]="true" [(visible)]="showDgRegisterHotel" [style]="{ width: '50rem' }">
+    <div class="flex items-center gap-4 mb-4">
+        <register-hotel></register-hotel>
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cancelar" severity="secondary" (click)="showDgRegisterHotel = false" />
+        <p-button label="Guardar" (click)="showDgRegisterHotel = false" />
+    </div>
+</p-dialog>

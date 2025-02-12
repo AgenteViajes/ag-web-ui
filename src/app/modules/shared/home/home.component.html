@@ -1,0 +1,21 @@
+<header>
+    <div class="card">
+        <p-menubar [model]="[]">
+            <ng-template #start>
+            <h3 routerLink="/">Agency Travel</h3>
+            </ng-template>
+            <ng-template #end>
+                <div class="flex align-items-center">
+                    <p-button
+                        routerLink="/login"
+                        label="Iniciar sesion"
+                        variant="text"
+                        [raised]="true"
+                        icon="pi pi-user"
+                    />
+                </div>
+            </ng-template>
+        </p-menubar>
+    </div>
+</header>
+<router-outlet></router-outlet>

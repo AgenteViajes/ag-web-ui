@@ -1,0 +1,38 @@
+<p-card>
+    <ng-template #header>
+        <img alt="Card" class="w-full" [src]="selectedHotel.pathImg" />
+    </ng-template>
+    <ng-template #title> {{selectedHotel.HotelName}}</ng-template>
+    <ng-template #subtitle> {{selectedHotel.address}} </ng-template>
+    <span>{{selectedHotel.city}}</span>
+    <div class="flex flex-row-reverse py-2 justify-content-between">
+        <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+            <div
+                class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+            >
+                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{
+                    selectedHotel.rating
+                }}</span>
+                <i class="pi pi-star-fill" style="color: var(--p-yellow-500)"></i>
+            </div>
+        </div>
+        <p-tag severity="info" [value]="selectedHotel.type" />
+    </div>
+    <p-divider />
+    <div class="grid font-light">
+        <div class="my-1 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Valor: </p>
+            <p class="my-1" > $ {{selectedHotel.price}}</p>
+        </div>
+        <div class="my-0 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Impuestos:</p>
+            <p class="my-1" > $ {{selectedHotel.taxes}}</p>
+        </div>
+        <div class="my-1 col-12 px-0 flex justify-content-between">
+            <h3 class="my-1" >Total : </h3>
+            <h3 class="my-1" >$ {{selectedHotel.price + selectedHotel.taxes}}</h3>
+        </div>
+    </div>
+
+</p-card>
