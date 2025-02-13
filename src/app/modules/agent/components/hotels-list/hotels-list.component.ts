@@ -7,7 +7,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
-import { IHotelData } from '../../../../domains/interfaces/IHotelData';
+import { HotelData } from '../../../../domains/interfaces/IHotelData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'hotels-list',
@@ -24,8 +25,9 @@ import { IHotelData } from '../../../../domains/interfaces/IHotelData';
   styleUrl: './hotels-list.component.scss'
 })
 export class HotelsListComponent {
-  hotels: IHotelData[] = [
+  hotels: HotelData[] = [
     {
+      id: 'BG1234',
       name: 'Empire State',
       city: 'Bogota',
       address: 'Kr 12 #12-44',
@@ -34,6 +36,7 @@ export class HotelsListComponent {
       status: StatusRoom.DISABLED,
     },
     {
+      id: 'BG144434',
       name: 'Casa Vieja',
       city: 'Valle del cauca',
       address: 'av 12 km-12',
@@ -43,8 +46,12 @@ export class HotelsListComponent {
     },
   ];
 
-  selectHotel(hotel: IHotelData) {
+  constructor(private router: Router){
+
+  }
+  selectHotel(hotel: HotelData) {
     console.log('Hotel seleccioado', hotel);
+    this.router.navigateByUrl(`${this.router.url}/hotel-details`)
   }
 
   getSeverity(status: StatusRoom) {

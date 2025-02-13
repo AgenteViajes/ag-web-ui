@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { DataView } from 'primeng/dataview';
 import { signal } from '@angular/core';
-import { BookingData } from '../../../../domains/interfaces/bookingData';
+import { RoomData } from '../../../../domains/interfaces/IRoomData';
 import { Tag } from 'primeng/tag';
 import { SelectItem } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
@@ -38,8 +38,8 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  hotels = signal<BookingData[]>([]);
-  selectedHotel!: BookingData;
+  hotels = signal<RoomData[]>([]);
+  selectedHotel!: RoomData;
   sortOptions!: SelectItem[];
   sortOrder!: number;
   sortField!: string;
@@ -52,7 +52,8 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.hotels.set ([
       {
-        HotelName: 'Real State',
+        id: 'BG12424',
+        hotelName: 'Real State',
         price: 1400,
         city: 'Bogota',
         address: 'Diagonal 43 -34',
@@ -62,7 +63,8 @@ export class ListComponent implements OnInit {
         pathImg: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
       },
       {
-        HotelName: 'Real State',
+        id: 'BG12332',
+        hotelName: 'Real State',
         price: 2500,
         city: 'Bogota',
         address: 'avenida 12 km 12 via Tunja - leyva',
@@ -81,7 +83,7 @@ export class ListComponent implements OnInit {
       }); */
   }
 
-  selectRoom(selectedRoom: BookingData) {
+  selectRoom(selectedRoom: RoomData) {
     console.log('Data seleccionada', selectedRoom);
     console.log('ruta actual', this.router.url)
     this.router.navigateByUrl(`${this.router.url}/register`);

@@ -1,0 +1,46 @@
+<div class="card">
+    <p-table 
+        [value]="rooms"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rows]="5"
+        [paginator]="true"
+    >
+        <ng-template #header>
+            <tr>
+                <th>Ubicacion</th>
+                <th>Tipo</th>
+                <th>Precio Base</th>
+                <th>Precio impuestos</th>
+                <th>Estado</th>
+                <th>Imagen</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-room>
+            <tr class="font-light">
+                <td>{{ room.location }}</td>
+                <td>
+                    <p-badge [value]="room.type"  badgeSize="xlarge" severity="info" />
+                </td>
+                <td>$ {{ room.price }}</td>
+                <td>$ {{ room.taxes }}</td>
+                <td>
+                    <p-tag [value]="room.status" [severity]="getSeverity(room.status)" />
+                </td>
+                <td>
+                    <img [src]="room.pathImg" [alt]="room.location" style="width: 64px" class="border-round-md" />
+                </td>
+                <td>
+                    <p-button
+                        pButton
+                        size="small"
+                        label="Editar"
+                        icon="pi pi-pencil"
+                        (click)="selectRoom(room)"
+                        severity="secondary"
+                        rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> 

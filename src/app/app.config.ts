@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
             darkModeSelector: false || 'none',
             cssLayer: {
               name: 'primeng',
-              order: 'app-styles, primeng, another-css-library'
+              order: 'tailwind-base, primeng, tailwind-utilities, app-styles, primeng, another-css-library'
             }
           }
       },

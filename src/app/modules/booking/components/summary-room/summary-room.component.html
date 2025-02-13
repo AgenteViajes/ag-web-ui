@@ -1,10 +1,10 @@
 <p-card>
     <ng-template #header>
-        <img alt="Card" class="w-full" [src]="selectedHotel.pathImg" />
+        <img alt="Card" class="w-full border-round-top-xl" [src]="selectedHotel.room.pathImg" />
     </ng-template>
-    <ng-template #title> {{selectedHotel.HotelName}}</ng-template>
-    <ng-template #subtitle> {{selectedHotel.address}} </ng-template>
-    <span>{{selectedHotel.city}}</span>
+    <ng-template #title> {{selectedHotel.room.hotelName}}</ng-template>
+    <ng-template #subtitle> {{selectedHotel.room.address}} </ng-template>
+    <span>{{selectedHotel.room.city}}</span>
     <div class="flex flex-row-reverse py-2 justify-content-between">
         <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
             <div
@@ -12,26 +12,45 @@
                 style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
             >
                 <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{
-                    selectedHotel.rating
+                    selectedHotel.room.rating
                 }}</span>
                 <i class="pi pi-star-fill" style="color: var(--p-yellow-500)"></i>
             </div>
         </div>
-        <p-tag severity="info" [value]="selectedHotel.type" />
+        <p-tag severity="info" [value]="selectedHotel.room.type" />
     </div>
     <p-divider />
-    <div class="grid font-light">
+    <div class="grid font-light text-sm px-2">
         <div class="my-1 p-0 col-12 flex justify-content-between">
-            <p class="my-1" >Valor: </p>
-            <p class="my-1" > $ {{selectedHotel.price}}</p>
+            <p class="my-1" >Fecha de ingreso: </p>
+            <p class="my-1" > {{selectedHotel.startDate}}</p>
+        </div>
+        <div class="my-1 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Fecha de salida: </p>
+            <p class="my-1" > {{selectedHotel.endDate}}</p>
+        </div>
+        <div class="my-1 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Huespedes: </p>
+            <p class="my-1" > {{selectedHotel.guestNumber}}</p>
+        </div>
+        <div class="my-1 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Noches: </p>
+            <p class="my-1" > {{selectedHotel.quantityDays}}</p>
+        </div>
+    </div>
+    <p-divider />
+    <div class="grid font-light px-2">
+        <div class="my-1 p-0 col-12 flex justify-content-between">
+            <p class="my-1" >Valor Base: </p>
+            <p class="my-1" > $ {{selectedHotel.room.price}}</p>
         </div>
         <div class="my-0 p-0 col-12 flex justify-content-between">
             <p class="my-1" >Impuestos:</p>
-            <p class="my-1" > $ {{selectedHotel.taxes}}</p>
+            <p class="my-1" > $ {{selectedHotel.room.taxes}}</p>
         </div>
         <div class="my-1 col-12 px-0 flex justify-content-between">
             <h3 class="my-1" >Total : </h3>
-            <h3 class="my-1" >$ {{selectedHotel.price + selectedHotel.taxes}}</h3>
+            <h3 class="my-1" >$ {{(selectedHotel.room.price * selectedHotel.quantityDays)  + selectedHotel.room.price}}</h3>
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 <div>
     <form [formGroup]="guestForm" class="form_filters formgrid grid row-gap-2 px-4 ">
         @if (isGuest) {
-            <span>Datos basicos</span>
+            <span class="font-normal">Datos basicos</span>
             <div id="documentInputs" class="grid h-3rem my-3">
                 <p-inputgroup class="col-4">
                     <p-inputgroup-addon>
@@ -65,7 +65,27 @@
         </div>
 
         @if (isGuest) {
-            <span>Datos de contacto</span>
+            <div class="grid h-3rem my-3">
+                <p-inputgroup class="col-6">
+                    <p-inputgroup-addon>
+                        <i class="pi pi-user"></i>
+                    </p-inputgroup-addon>
+                    <p-floatlabel variant="on">
+                        <input pInputText id="firstName" formControlName="firstName" />
+                        <label for="firstName">Fecha de nacimiento</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup class="col-6">
+                    <p-floatlabel variant="on">
+                        <input pInputText id="firstName" formControlName="firstName" />
+                        <label for="firstName">Genero</label>
+                    </p-floatlabel>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-user"></i>
+                    </p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+            <span class="font-normal">Datos de contacto</span>
         }
         <div id="contactInputs" class="field grid row-gap-3 my-3">
         @if (isGuest) {

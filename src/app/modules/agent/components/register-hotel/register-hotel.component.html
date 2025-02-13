@@ -5,21 +5,12 @@
                 <i class="pi pi-id-card"></i>
             </p-inputgroup-addon>
             <p-floatlabel variant="on">
-                <input pInputText id="firstName" formControlName="firstName" />
-                <label for="firstName">Nombre</label>
-            </p-floatlabel>
-        </p-inputgroup>
-        <p-inputgroup class="col-12 h-3rem">
-            <p-inputgroup-addon>
-                <i class="pi pi-id-card"></i>
-            </p-inputgroup-addon>
-            <p-floatlabel variant="on">
-                <input pInputText id="firstName" formControlName="firstName" />
-                <label for="firstName">Dirección</label>
+                <input pInputText id="name" formControlName="name" />
+                <label for="name">Nombre</label>
             </p-floatlabel>
         </p-inputgroup>
         <div id="additional" class="col-12 grid h-3rem mt-3">
-            <p-inputgroup class="col-12 sm:col-12 md:col">
+            <p-inputgroup class="col-12 sm:col-12 md:col-5">
                 <p-inputgroup-addon>
                     <i class="pi pi-user"></i>
                 </p-inputgroup-addon>
@@ -36,27 +27,32 @@
                     <label for="city">Ciudad</label>
                 </p-floatlabel>
             </p-inputgroup>
-            <div class="col-3 flex flex-column align-items-center">
+            <p-inputgroup class="col-12 sm:col-12 md:col-7">
+                <p-inputgroup-addon>
+                    <i class="pi pi-id-card"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel variant="on">
+                    <input pInputText id="address" formControlName="address" />
+                    <label for="address">Dirección</label>
+                </p-floatlabel>
+            </p-inputgroup>
+        </div>
+        
+        <div id="additional" class="col-12 grid gap-4 h-3rem mt-3">
+            <div class="col-12 flex gap-2 flex-column align-items-start">
                 <label>Estado</label>
-                <p-togglebutton
+                <p-selectbutton
+                    size="large"
+                    [options]="[{ label: 'Activado', value: 'Activado' },{ label: 'Desactivado', value: 'Desactivado' }]"
                     formControlName="status"
-                    onLabel="Activo"
-                    [onIcon] = "'pi pi-sign-in'"
-                    offLabel="Inactivo"
-                    offIcon = "pi pi-power-off"
-                    styleClass="w-30"
-                    ariaLabel="Estado del hotel" />
+                    allowEmpty="false"
+                    optionLabel="label"
+                    optionValue="value">
+                </p-selectbutton>
             </div>
-            <div class="col-3 flex flex-column align-items-center">
+            <div class="col-3 flex gap-2 flex-column align-items-start justify-content-start">
                 <label>Calificación</label>
-                <p-togglebutton
-                    formControlName="status"
-                    onLabel="Activo"
-                    [onIcon] = "'pi pi-sign-in'"
-                    offLabel="Inactivo"
-                    offIcon = "pi pi-power-off"
-                    styleClass="w-30"
-                    ariaLabel="Estado del hotel" />
+                <p-rating formControlName="rating" />
             </div>
         </div>
     </form>

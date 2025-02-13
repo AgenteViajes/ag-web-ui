@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, FormControl} from '@angular/forms';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { ToggleButton } from 'primeng/togglebutton';
-import { InputNumber } from 'primeng/inputnumber';
-import { Select } from 'primeng/select';
+import { SelectButton } from 'primeng/selectbutton';
+import { RatingModule } from 'primeng/rating';
+import { SelectModule } from 'primeng/select';
+import { HotelDetailData } from '../../../../domains/interfaces/IHotelData';
+import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
+import { TagModule } from 'primeng/tag';
 
 interface City {
   name: string;
@@ -23,15 +26,16 @@ interface City {
     InputGroupModule,
     InputGroupAddonModule,
     FloatLabelModule,
-    ToggleButton,
-    InputNumber,
-    Select
+    SelectButton,
+    RatingModule,
+    SelectModule,
+    TagModule
   ],
   templateUrl: './register-hotel.component.html',
   styleUrl: './register-hotel.component.scss'
 })
 export class RegisterHotelComponent implements OnInit {
-
+  @Input() preloadData: HotelDetailData | undefined;
   cities:City[]= []
   hotelDataForm: FormGroup = new FormGroup({});
 
@@ -42,22 +46,16 @@ export class RegisterHotelComponent implements OnInit {
     ]
 
     this.hotelDataForm = new FormGroup({
-      status: new FormControl(true),
-      rating: new FormControl(''),
-
-      lastName: new FormControl(''),
-      secondLastName: new FormControl(''),
-      birthDate: new FormControl(''),
-      gender: new FormControl(''),
-      documentType: new FormControl(''),
-      documentNumber: new FormControl(''),
-      email: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      status: new FormControl(this.preloadData? this.preloadData.status: StatusRoom.ENABLED),
+      rating: new FormControl(this.preloadData? this.preloadData.rating : 0),
+      name: new FormControl(this.preloadData? this.preloadData.name : ''),
+      city: new FormControl(this.preloadData? this.findCity(this.preloadData.city) : ''),
+      address: new FormControl(this.preloadData? this.preloadData.address : ''),
     })
   }
 
-  searchCity(event:any){
-
+  findCity(city: string){
+    return this.cities[0]
   }
 
 }

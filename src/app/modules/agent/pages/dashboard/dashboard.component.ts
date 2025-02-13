@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -11,6 +10,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { HotelsListComponent } from "../../components/hotels-list/hotels-list.component";
 import { Dialog } from 'primeng/dialog';
 import { RegisterHotelComponent } from "../../components/register-hotel/register-hotel.component";
+import { BookingListComponent } from "../../components/booking-list/booking-list.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +25,8 @@ import { RegisterHotelComponent } from "../../components/register-hotel/register
     OverlayBadgeModule,
     HotelsListComponent,
     Dialog,
-    RegisterHotelComponent
+    RegisterHotelComponent,
+    BookingListComponent
 ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

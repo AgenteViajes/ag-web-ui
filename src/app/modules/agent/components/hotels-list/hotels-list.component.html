@@ -1,5 +1,9 @@
 <div class="card">
-    <p-table [value]="hotels" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table
+        [rows]="5"
+        [paginator]="true"
+        [value]="hotels"
+        [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>Nombre</th>
@@ -27,6 +31,8 @@
                 </td>
                 <td>
                     <p-button
+                        pButton
+                        size="small"
                         label="Gestionar"
                         icon="pi pi-cog"
                         (click)="selectHotel(hotel)"

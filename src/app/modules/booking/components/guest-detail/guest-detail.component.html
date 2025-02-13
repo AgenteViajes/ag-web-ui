@@ -1,0 +1,38 @@
+<div class="flex flex-column gap-3 font-normal">
+    <div class="flex gap-2 align-items-center">
+        <p-avatar icon="pi pi-user" class="mr-2" [size]="isGuest?'large':'normal'" class="text-primary" />
+        <h2 class="my-1">{{getFullName()}}</h2>
+    </div>
+    @if (isGuest && isGuestData(guest)) {
+        <div class="flex gap-2 align-items-center">
+            <i class="pi pi-id-card mr-1 ml-1"></i>
+            <span class="font-medium">{{guest.documentType}}:</span>
+            <span>{{guest.documentNumber}}</span>
+        </div>
+        <div class="flex gap-2">
+            <i class="pi pi-calendar-clock mr-1 ml-1"></i>
+            <span class="font-medium">Fecha de nacimiento : </span>
+            <span>{{guest.birthDate}}</span>
+        </div>
+        <div class="flex gap-2">
+            <i class="pi pi-hourglass mr-1 ml-1"></i>
+            <span class="font-medium">Edad : </span>
+            <span>{{getAge(guest)}}</span>
+        </div>
+        <div class="flex gap-2">
+            <i class="pi pi-users mr-1 ml-1"></i>
+            <span class="font-medium" >Genero : </span>
+            <span>{{guest.gender}}</span>
+        </div>
+        <div class="flex gap-2">
+            <i class="pi pi-at mr-1 ml-1"></i>
+            <span class="font-medium">Correo : </span>
+            <span>{{guest.email}}</span>
+        </div>
+    }
+    <div class="flex gap-2">
+        <i class="pi pi-phone mr-1 ml-1"></i>
+        <span class="font-medium">Numero de Celular : </span>
+        <span>{{guest.phoneNumber}}</span>
+    </div>
+</div>

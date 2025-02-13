@@ -1,17 +1,23 @@
+import { Gender } from "../enums/EGender";
+
 export interface IGuestData {
     firstName: string;
     secondName: string;
     firstLastname: string;
     secondlastname: string;
+    birthDate: string;
+    gender: Gender;
     documentType: string;
     documentNumber: number;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
 }
 
-export interface IEmergencyContactData extends Omit<
+export interface IEmergencyContactData extends Pick<
         IGuestData, 
-        'email'|
-        'documentType'|
-        'documentNumber'
+        'firstName'|
+        'secondName'|
+        'firstLastname'|
+        'secondlastname'|
+        'phoneNumber'
     >{}

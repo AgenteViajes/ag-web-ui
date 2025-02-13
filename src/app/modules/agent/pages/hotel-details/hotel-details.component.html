@@ -1,0 +1,58 @@
+<p-card class="grid mb-2 mx-2 px-2 py-2" styleClass="col-12 px-4" >
+    <div class="grid">
+        <div class="col flex justify-content-start align-items-center  gap-4 pl-2">
+            <div class="">
+                <h2 class=" mt-4 mb-1">{{hotelDetails.name}}</h2>
+                <p class=" mt-4 mb-1">{{hotelDetails.address}}</p>
+                <p class=" mt-1">{{hotelDetails.city}}</p>
+                <p-tag [value]="hotelDetails.status" [severity]="getSeverity(hotelDetails.status)" />
+            </div>
+            <div class="">
+                <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                    <div
+                        class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                        style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                    >
+                        <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{
+                            hotelDetails.rating
+                        }}</span>
+                        <i class="pi pi-star-fill" style="color: var(--p-yellow-500)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-content-end col-2">
+            <p-button
+                pButton
+                size="large"
+                label=""
+                icon="pi pi-bars"
+                (click)="menu.toggle($event)"
+                severity="primary"
+                rounded />
+            <p-menu #menu [model]="items" [popup]="true" />
+        </div>
+    </div>
+    <div class=" mt-6">
+        <agent-rooms-list (selectedRoom)="enableFormUpdateRoom($event)"></agent-rooms-list>
+    </div>
+</p-card>
+<p-dialog [header]="dialogInfo().title" [modal]="true" [(visible)]="showDialog" [style]="{ width: '50rem' }">
+    <div class="flex items-center gap-4 mb-4">
+        @switch (dialogInfo().type) {
+            @case (dialogTypes.FORM_HOTEL) {
+                <register-hotel [preloadData]="hotelDetails"></register-hotel>
+            }
+            @case (dialogTypes.FORM_ROOM) {
+                <register-room [preloadData]="roomSelected()"></register-room>
+            }
+            @default {
+                <register-hotel></register-hotel>
+            }
+        }
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button pButton size="small" [label]="dialogInfo().labelBtnCancel" severity="secondary" (click)="showDialog = false" />
+        <p-button pButton size="small" [label]="dialogInfo().labelBtnAccept" (onClick)="dialogAccept(dialogInfo())" />
+    </div>
+</p-dialog>

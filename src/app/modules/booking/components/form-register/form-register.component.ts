@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 
 
 
+
 @Component({
   selector: 'booking-form-register',
   imports: [
@@ -17,9 +18,9 @@ import { ButtonModule } from 'primeng/button';
     InputGroupModule,
     FloatLabelModule,
     InputGroupAddonModule,
-    InputTextModule,
     FormsModule,
-    ButtonModule
+    InputTextModule,
+    ButtonModule,
   ],
   templateUrl: './form-register.component.html',
   styleUrl: './form-register.component.scss'
@@ -37,7 +38,7 @@ export class FormRegisterComponent implements OnInit {
       birthDate: new FormControl(''),
       gender: new FormControl(''),
       documentType: new FormControl(''),
-      documentNumber: new FormControl(''),
+      documentNumber: new FormControl(0),
       email: new FormControl(''),
       phoneNumber: new FormControl(''),
     })

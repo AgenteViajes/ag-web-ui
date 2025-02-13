@@ -1,1 +1,27 @@
-<p>detail-booking works!</p>
+<div class="grid px-6 py-4">
+    <booking-summary-room class="col-3"></booking-summary-room>
+    <p-card header="Huespedes" class="col-9">
+        <p-tabs [value]=0 [scrollable]="true">
+            <p-tablist>
+                @for (guest of bookingSummary.guest; track $index; let index = $index; let first=$first) {
+                    @if (first) {
+                        <p-tab [value]="index">Titular</p-tab>
+                    } @else {
+                        <p-tab [value]="index">Huesped {{ index+1 }}</p-tab>
+                    }
+                }
+                <p-tab [value]="bookingSummary.guest.length">Contacto de emergencia</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+                @for (guest of bookingSummary.guest; track $index; let index = $index; let first=$first) {
+                    <p-tabpanel [value]="index">
+                        <guest-detail [guest]="guest"></guest-detail>
+                    </p-tabpanel>
+                }
+                <p-tabpanel [value]="bookingSummary.guest.length">
+                    <guest-detail [guest]="bookingSummary.emergencyContact" [isGuest]="false"></guest-detail>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    </p-card>
+</div>

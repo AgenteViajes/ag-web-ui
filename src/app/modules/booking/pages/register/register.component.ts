@@ -10,6 +10,9 @@ import { IGuestData } from '../../../../domains/interfaces/IGuestData';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
+import { Gender } from '../../../../domains/enums/EGender';
+
 
 @Component({
   selector: 'booking-register',
@@ -22,7 +25,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     CommonModule,
     DialogModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    MessageModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -56,7 +60,9 @@ export class RegisterComponent implements OnInit {
           documentType: '',
           documentNumber: 0,
           email: '',
-          phoneNumber: 0
+          phoneNumber: '',
+          birthDate: '',
+          gender: Gender.FEMALE
         }
       )
     }

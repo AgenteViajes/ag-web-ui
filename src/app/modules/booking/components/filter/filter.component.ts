@@ -4,7 +4,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
-import { BookingFilter } from '../../../../domains/interfaces/bookingFilter';
+import { RoomFilter } from '../../../../domains/interfaces/IRoomFilter';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -28,7 +28,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './filter.component.scss'
 })
 export class FilterComponent implements OnInit{
-  filters: BookingFilter = {
+  filters: RoomFilter = {
     startDate: '',
     endDate: '',
     location: '',

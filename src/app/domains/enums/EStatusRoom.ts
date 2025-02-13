@@ -1,5 +1,5 @@
 export enum StatusRoom {
-    DISABLED = 'Innactivo',
-    ENABLED = 'Habilitado'
+    DISABLED = 'Desactivado',
+    ENABLED = 'Activado'
 }
 

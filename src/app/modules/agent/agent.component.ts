@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { Menubar } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
+import { BreadcrumComponent } from "./components/breadcrum/breadcrum.component";
 
 @Component({
   selector: 'app-agent',
@@ -13,15 +13,27 @@ import { AvatarModule } from 'primeng/avatar';
     CommonModule,
     ButtonModule,
     RouterModule,
-    AvatarModule
-  ],
+    AvatarModule,
+    BreadcrumComponent
+],
   templateUrl: './agent.component.html',
   styleUrl: './agent.component.scss'
 })
-export class AgentComponent {
-
+export class AgentComponent implements OnInit{
+  isHome = signal(true)
   user = {
     name: 'Emerson'
+  }
+
+  constructor(private router: Router){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isHome.set(this.router.url === '/agent');
+      }
+    });
+  }
+
+  ngOnInit(): void {
   }
 
 
