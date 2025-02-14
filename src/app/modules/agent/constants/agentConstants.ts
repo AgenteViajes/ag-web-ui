@@ -6,7 +6,7 @@ export const agentConstants = {
         },
         { 
           label: 'Detalles Reserva',
-          route: '/agent/booking-details' 
+          route: '/agent/booking-details/' 
         },
     ]
     

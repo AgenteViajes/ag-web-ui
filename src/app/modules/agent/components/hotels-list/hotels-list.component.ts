@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
 import { HotelData } from '../../../../domains/interfaces/IHotelData';
 import { Router } from '@angular/router';
+import { BookingService } from '../../../booking/services/booking/booking.service';
 
 @Component({
   selector: 'hotels-list',
@@ -24,34 +25,24 @@ import { Router } from '@angular/router';
   templateUrl: './hotels-list.component.html',
   styleUrl: './hotels-list.component.scss'
 })
-export class HotelsListComponent {
-  hotels: HotelData[] = [
-    {
-      id: 'BG1234',
-      name: 'Empire State',
-      city: 'Bogota',
-      address: 'Kr 12 #12-44',
-      innactivateRooms: 3,
-      activateRooms: 23,
-      status: StatusRoom.DISABLED,
-    },
-    {
-      id: 'BG144434',
-      name: 'Casa Vieja',
-      city: 'Valle del cauca',
-      address: 'av 12 km-12',
-      innactivateRooms: 3,
-      activateRooms: 23,
-      status: StatusRoom.ENABLED,
-    },
-  ];
+export class HotelsListComponent implements OnInit {
+  @Output() selectedHotel = new EventEmitter<HotelData>();
+  hotels!: HotelData[];
 
-  constructor(private router: Router){
+  constructor(
+    private bookingService: BookingService
+  ){
 
   }
+  ngOnInit(): void {
+    this.bookingService.getHotels().subscribe({
+      next: (response)=>{
+        this.hotels = response;
+      }
+    })
+  }
   selectHotel(hotel: HotelData) {
-    console.log('Hotel seleccioado', hotel);
-    this.router.navigateByUrl(`${this.router.url}/hotel-details`)
+    this.selectedHotel.emit(hotel);
   }
 
   getSeverity(status: StatusRoom) {

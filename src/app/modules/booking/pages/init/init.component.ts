@@ -55,7 +55,6 @@ export class InitComponent implements OnInit{
 
   registerBooking(selectedRoom: RoomData){
     const bookingData = this.buildData(selectedRoom);
-    console.log('data en session ',bookingData)
     this.storage.saveItemSession(Constants.storageKeys.session.bookingRoom,bookingData);
     this.router.navigateByUrl('/booking/register');
   }

@@ -15,7 +15,6 @@ import { BookingData, BookingSummaryData } from '../../../../domains/interfaces/
 import { StoreService } from '../../../shared/services/store/store.service';
 import { Constants } from '../../../shared/constants/Constants';
 import { Router } from '@angular/router';
-import { timeout } from 'rxjs';
 import { format } from '@formkit/tempo';
 
 
@@ -59,7 +58,6 @@ export class RegisterComponent implements OnInit {
     this.bookingData = this.storage.getItemSession(Constants.storageKeys.session.bookingRoom);
     this.guestNumber = this.bookingData?.guestNumber;
     this.guestData = Array.from({length: this.guestNumber})
-    console.log(this.bookingData);
   }
 
   registerDataGuest(){
@@ -103,8 +101,7 @@ export class RegisterComponent implements OnInit {
   }
 
   getEmergencyContactInfo(event: GuestDataForm){
-    console.log(event)
-    this.emergencyContact= event;
+    this.emergencyContact = event;
   }
 
   saveInfoBookingComplete(){

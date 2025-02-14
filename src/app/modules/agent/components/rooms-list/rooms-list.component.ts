@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
@@ -29,36 +29,7 @@ export class RoomsListComponent {
 
   @Output() selectedRoom = new EventEmitter<RoomDetailData>()
 
-  rooms: RoomDetailData[] = [
-      {
-        id: 'BG1238283-baudn',
-        status: StatusRoom.DISABLED,
-        price: 3045,
-        taxes: 120,
-        type: 'Doble',
-        pathImg: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        location: 'RL103'
-      },
-      {
-        id: 'BG1238283-baudn',
-        status: StatusRoom.ENABLED,
-        price: 3045,
-        taxes: 120,
-        type: 'Sencilla',
-        pathImg: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        location: 'RL103'
-      },
-      {
-        id: 'BG1238283-baudn',
-        status: StatusRoom.ENABLED,
-        price: 3045,
-        taxes: 120,
-        type: 'Full-Doble',
-        pathImg: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        location: 'RL103'
-      }
-      
-    ];
+  @Input() rooms!: RoomDetailData[];
   
     constructor(private router: Router){
   

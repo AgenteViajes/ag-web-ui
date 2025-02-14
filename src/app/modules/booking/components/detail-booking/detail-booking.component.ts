@@ -9,6 +9,8 @@ import { TabsModule } from 'primeng/tabs';
 import { SummaryRoomComponent } from '../summary-room/summary-room.component';
 import { GuestDetailComponent } from "../guest-detail/guest-detail.component";
 import { UtilitiesService } from '../../../shared/services/utilities/utilities.service';
+import { BookingService } from '../../services/booking/booking.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -31,11 +33,21 @@ export class DetailBookingComponent implements OnInit {
   RoomData!: BookingData;
 
   constructor(
-    private utilities: UtilitiesService
+    private utilities: UtilitiesService,
+    private route: ActivatedRoute,
+    private bookingService: BookingService
   ){}
 
   ngOnInit() {
-    this.RoomData = this.getRoomDetails(this.bookingSummary);
+    this.route.paramMap.subscribe(params => {
+      const bookingId = params.get('bookingId');
+      if (bookingId) {
+        this.getDataFromId(bookingId);
+      }
+    });
+    if (this.bookingSummary) {
+      this.RoomData = this.getRoomDetails(this.bookingSummary);
+    }
   }
 
   getRoomDetails(bookingSummary: BookingSummaryData):BookingData{
@@ -47,6 +59,18 @@ export class DetailBookingComponent implements OnInit {
       quantityDays: this.utilities.calculateDaysBooking(bookingSummary?.startDate,bookingSummary?.endDate),
       room: bookingSummary?.room
     } as BookingData
+  }
+
+  getDataFromId(bookingId: string){
+    this.bookingService.getBookingDetails(bookingId).subscribe({
+      next:(response)=>{
+        this.bookingSummary = response;
+        this.RoomData = this.getRoomDetails(this.bookingSummary);
+      },
+      error:()=>{
+
+      }
+    })
   }
 }
 

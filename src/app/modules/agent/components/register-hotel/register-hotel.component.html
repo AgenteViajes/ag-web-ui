@@ -5,7 +5,7 @@
                 <i class="pi pi-id-card"></i>
             </p-inputgroup-addon>
             <p-floatlabel variant="on">
-                <input pInputText id="name" formControlName="name" />
+                <input pInputText required id="name" formControlName="name" />
                 <label for="name">Nombre</label>
             </p-floatlabel>
         </p-inputgroup>
@@ -16,10 +16,14 @@
                 </p-inputgroup-addon>
                 <p-floatlabel variant="in">
                     <p-select
+                        class="font-medium"
+                        required
                         formControlName="city"
                         placeholder=""
-                        optionLabel="name"
-                        [editable]="true"
+                        optionLabel="label"
+                        optionValue="value"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="20"
                         [options]="cities"
                         [showClear]="true"
                         [filter]="true"
@@ -32,7 +36,7 @@
                     <i class="pi pi-id-card"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel variant="on">
-                    <input pInputText id="address" formControlName="address" />
+                    <input pInputText required id="address" formControlName="address" />
                     <label for="address">Dirección</label>
                 </p-floatlabel>
             </p-inputgroup>
@@ -43,6 +47,7 @@
                 <label>Estado</label>
                 <p-selectbutton
                     size="large"
+                    required
                     [options]="[{ label: 'Activado', value: 'Activado' },{ label: 'Desactivado', value: 'Desactivado' }]"
                     formControlName="status"
                     allowEmpty="false"
@@ -52,7 +57,7 @@
             </div>
             <div class="col-3 flex gap-2 flex-column align-items-start justify-content-start">
                 <label>Calificación</label>
-                <p-rating formControlName="rating" />
+                <p-rating required formControlName="rating" />
             </div>
         </div>
     </form>

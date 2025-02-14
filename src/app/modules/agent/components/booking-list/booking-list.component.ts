@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { BookingTableData } from '../../../../domains/interfaces/IBookingTableData';
 import { Router } from '@angular/router';
+import { BookingService } from '../../../booking/services/booking/booking.service';
 
 @Component({
   selector: 'agent-booking-list',
@@ -21,33 +22,26 @@ import { Router } from '@angular/router';
   templateUrl: './booking-list.component.html',
   styleUrl: './booking-list.component.scss'
 })
-export class BookingListComponent {
+export class BookingListComponent implements OnInit {
 
-  constructor(private router: Router){
+  bookings!: BookingTableData[];
+
+  constructor(
+    private router: Router,
+    private bookingService: BookingService
+  ){
 
   }
-
-  bookings: BookingTableData[] = [
-    {
-      idBooking: '121232',
-      titularName: 'Roger Murcia Garcia',
-      guestNumber: 5,
-      startDate: '04/06/2025',
-      endDate: '03/07/2025',
-      HotelName: 'Empire State'
-    },
-    {
-      idBooking: '121232',
-      titularName: 'Pedro Leon Marino',
-      guestNumber: 3,
-      startDate: '12/03/2025',
-      endDate: '16/03/2025',
-      HotelName: 'Coco House'
-    }
-  ]
+  ngOnInit(): void {
+    this.bookingService.getBookings().subscribe({
+      next:(response)=>{
+        this.bookings= response;
+      }
+    })
+  }
 
   showDetailsBooking(bookingSelect: any){
-    this.router.navigateByUrl(`${this.router.url}/booking-details`)
+    this.router.navigateByUrl(`${this.router.url}/booking-details/${bookingSelect.idBooking}`)
   }
 
 }

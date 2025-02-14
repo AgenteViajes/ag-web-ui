@@ -6,7 +6,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
-import { GuestDataForm } from '../../../../domains/interfaces/IGuestData';
+import { GuestDataForm, IGuestData } from '../../../../domains/interfaces/IGuestData';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
@@ -32,6 +32,7 @@ import { Constants } from '../../../shared/constants/Constants';
 })
 export class FormRegisterComponent implements OnInit {
   @Input() isGuest = true;
+  @Input() guestData!: IGuestData;
   @Output() formDataGuest = new EventEmitter<GuestDataForm>();
   guestForm: FormGroup = new FormGroup({});
   typeDocuments = Constants.documentTypes;
@@ -51,6 +52,9 @@ export class FormRegisterComponent implements OnInit {
       email: new FormControl('',[...guestVl,Validators.email]),
       phoneNumber: new FormControl(null,[Validators.required,Validators.minLength(10)]),
     })
+    if (this.guestData) {
+      this.guestForm.setValue(this.guestData);
+    }
     this.guestForm.statusChanges.subscribe({
       next:(data)=>{
         this.formDataGuest.emit({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, FormControl} from '@angular/forms';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -7,9 +7,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectButton } from 'primeng/selectbutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectModule } from 'primeng/select';
-import { HotelDetailData } from '../../../../domains/interfaces/IHotelData';
+import { HotelDataForm, HotelDetailData } from '../../../../domains/interfaces/IHotelData';
 import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
 import { TagModule } from 'primeng/tag';
+import { UtilitiesService } from '../../../shared/services/utilities/utilities.service';
+import { GuestDataForm } from '../../../../domains/interfaces/IGuestData';
 
 interface City {
   name: string;
@@ -36,26 +38,37 @@ interface City {
 })
 export class RegisterHotelComponent implements OnInit {
   @Input() preloadData: HotelDetailData | undefined;
+  @Output() formDataHotel = new EventEmitter<HotelDataForm>();
   cities:City[]= []
   hotelDataForm: FormGroup = new FormGroup({});
+  constructor(
+    private utilities: UtilitiesService
+  ){
+
+  }
 
   ngOnInit(): void {
-    this.cities = [
-      { "name": "Bogotá","code": "10011" },
-      { "name": "Tunja", "code": "10021" }
-    ]
-
+    this.utilities.getCities().subscribe({
+      next: (cities)=>{
+        this.cities= cities;
+      }
+    })
     this.hotelDataForm = new FormGroup({
       status: new FormControl(this.preloadData? this.preloadData.status: StatusRoom.ENABLED),
       rating: new FormControl(this.preloadData? this.preloadData.rating : 0),
       name: new FormControl(this.preloadData? this.preloadData.name : ''),
-      city: new FormControl(this.preloadData? this.findCity(this.preloadData.city) : ''),
+      city: new FormControl(this.preloadData? this.preloadData.city : null),
       address: new FormControl(this.preloadData? this.preloadData.address : ''),
     })
-  }
 
-  findCity(city: string){
-    return this.cities[0]
+    this.hotelDataForm.statusChanges.subscribe({
+      next:()=>{
+        this.formDataHotel.emit({
+          hotelData: this.hotelDataForm.value,
+          statusForm: this.hotelDataForm.status
+        })
+      }
+    })
   }
 
 }

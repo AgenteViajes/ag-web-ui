@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, input, signal } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -18,32 +18,16 @@ import { agentConstants } from '../../constants/agentConstants';
   styleUrl: './breadcrum.component.scss'
 })
 export class BreadcrumComponent {
-  items = signal<MenuItem[]>([]);
+  @Input() items = signal<MenuItem[]>([
+    { 
+      icon: 'pi pi-home',
+      route: '/agent'
+    }
+  ]);
 
   constructor(private router: Router){
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.updateRoutes(this.router.url);
-      }
-    });
   }
 
-  ngOnInit() {
-      this.items.set([
-        { 
-          icon: 'pi pi-home',
-          route: '/agent'
-        }
-      ]);
-  }
+  ngOnInit() {}
 
-  updateRoutes(path: string){
-    agentConstants.breadCrumdItems.forEach((item)=>{
-      if (item.route === path) {
-        this.items().push(item)
-      }
-    })
-    console.log('actualizamos la ruta : ', path, this.items())
-
-  }
 }

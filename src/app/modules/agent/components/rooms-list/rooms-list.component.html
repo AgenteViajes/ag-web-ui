@@ -22,8 +22,8 @@
                 <td>
                     <p-badge [value]="room.type"  badgeSize="xlarge" severity="info" />
                 </td>
-                <td>$ {{ room.price }}</td>
-                <td>$ {{ room.taxes }}</td>
+                <td>$ {{ room.price  | currency : 'USD' :'': '1.0-0'  }}</td>
+                <td>$ {{ room.taxes  | currency : 'USD' :'': '1.0-0'  }}</td>
                 <td>
                     <p-tag [value]="room.status" [severity]="getSeverity(room.status)" />
                 </td>

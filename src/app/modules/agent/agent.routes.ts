@@ -15,7 +15,7 @@ export const agentRoutes: Routes = [
         component: HotelDetailsComponent
     },
     {
-        path: 'booking-details',
+        path: 'booking-details/:bookingId',
         component: DetailBookingComponent
     }
 ];

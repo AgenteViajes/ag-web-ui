@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class=" mt-6">
-        <agent-rooms-list (selectedRoom)="enableFormUpdateRoom($event)"></agent-rooms-list>
+        <agent-rooms-list [rooms]="hotelDetails.rooms" (selectedRoom)="enableFormUpdateRoom($event)"></agent-rooms-list>
     </div>
 </p-card>
 <p-dialog [header]="dialogInfo().title" [modal]="true" [(visible)]="showDialog" [style]="{ width: '50rem' }">
