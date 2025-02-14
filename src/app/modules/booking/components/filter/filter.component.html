@@ -1,0 +1,75 @@
+<p-card class="filters_card" header="Busca el alojamiento para tu proxima Aventura!!">
+    <form [formGroup]="filtersForm" (ngSubmit)="findbyFilters()" class="form_filters grid align-items-center">
+        <p-inputgroup class="sm:col-12 md:col">
+            <p-floatlabel variant="in">
+                <p-select
+                    pSelect
+                    formControlName="city"
+                    placeholder=""
+                    optionLabel="label"
+                    optionValue="value"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="20"
+                    [editable]="false"
+                    [options]="cities"
+                    [showClear]="true"
+                    [filter]="true"
+                    required="true"
+                    inputId="citySelect" />
+                <label for="citySelect">Ciudad Destino</label>
+            </p-floatlabel>
+            <p-inputgroup-addon>
+                <i class="pi pi-map-marker"></i>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-inputgroup class='sm:col-12 md:col'>
+            <p-floatlabel variant="in">
+                <p-datepicker
+                    class ="datePicker"
+                    formControlName="dates"
+                    selectionMode="range"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    [minDate]="minDate"
+                    dateFormat="dd/mm/yy"
+                    inputId="range_date"
+                    [showIcon]="true"
+                    required="true"
+                    >
+                </p-datepicker>
+                <label for="range_date">Rango de fechas</label>
+            </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup class='sm:col-12 md:col'>
+            <p-floatlabel variant="in">
+                <p-inputnumber 
+                    id="people_number"
+                    formControlName="peopleCount"
+                    [showButtons]="true"
+                    inputId="people_number"
+                    mode="decimal"
+                    required="true"
+                    maxlength="2"
+                    [min]="1"
+                    [max]="99"
+                />
+                <label for="people_number">Cantidad de personas</label>
+            </p-floatlabel>
+            <p-inputgroup-addon>
+                <i class="pi pi-users"></i>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-button
+            size="large"
+            fluid="true"
+            class='sm:col-12 md:col-fixed w-10rem flex justify-content-center'
+            label="Buscar"
+            icon="pi pi-search"
+            variant="text"
+            raised="true"
+            [severity]="!filtersForm.valid?'secondary':'primary'"
+            [disabled]="!filtersForm.valid"
+            type="submit"
+        ></p-button>
+    </form>
+</p-card>

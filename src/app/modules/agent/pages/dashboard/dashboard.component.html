@@ -1,0 +1,40 @@
+<p-card class="grid mx-2 my-3 px-2 py-2" styleClass="col-12">
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">
+                <i class="pi pi-home"></i>
+                <span>Hoteles</span>
+            </p-tab>
+            <p-tab value="1">
+                <i class="pi pi-list"></i>
+                <span>Reservas</span>
+            </p-tab>
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                <hotels-list (selectedHotel)="showHotelDetails($event)"></hotels-list>
+                <div class="flex mt-3 justify-content-end">
+                    <p-button
+                        label="Registrar Hotel"
+                        icon="pi pi-plus"
+                        (click)="openRegisterHotelDialog()"
+                        severity="success"
+                        rounded />
+                </div>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+                <agent-booking-list></agent-booking-list>
+            </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+</p-card>
+<p-toast />
+<p-dialog header="Registrar Nuevo Hotel" [modal]="true" [(visible)]="showDgRegisterHotel" [style]="{ width: '50rem' }">
+    <div class="flex items-center gap-4 mb-4">
+        <register-hotel (formDataHotel)="registerHotelData($event)" ></register-hotel>
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button pButton size="small" label="Cancelar" severity="secondary" (click)="showDgRegisterHotel = false" />
+        <p-button pButton size="small" label="Guardar" [disabled]="registerHotelinfo?.statusForm !== 'VALID'" (click)="registerHotel()" />
+    </div>
+</p-dialog>

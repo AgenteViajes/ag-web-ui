@@ -1,0 +1,6 @@
+<div class="init_container">
+    <booking-filter (filtersApply)="findBooking($event)"></booking-filter>
+    @if (roomsFiltered().length !== 0) {
+        <booking-list class="w-full" [roomsList]="roomsFiltered" (roomSelected)="registerBooking($event)"></booking-list>
+    }
+</div>

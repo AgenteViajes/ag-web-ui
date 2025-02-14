@@ -1,0 +1,41 @@
+<div class="card">
+    <p-table 
+        [rows]="5"
+        [paginator]="true"
+        [value]="bookings"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Id</th>
+                <th>Titular</th>
+                <th>Huespedes</th>
+                <th>Hotel</th>
+                <th>Fecha ingreso</th>
+                <th>Fecha salida</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-booking>
+            <tr class="font-normal">
+                <td>{{ booking.idBooking }}</td>
+                <td>{{ booking.titularName }}</td>
+                <td>
+                    <p-badge [value]="booking.guestNumber"  badgeSize="xlarge" />
+                </td>
+                <td>{{ booking.HotelName }}</td>
+                <td>{{ booking.startDate }}</td>
+                <td>{{ booking.endDate }}</td>
+                <td>
+                    <p-button
+                        pButton
+                        size="small"
+                        label="Ver Detalles"
+                        icon="pi pi-book"
+                        (click)="showDetailsBooking(booking)"
+                        severity="secondary"
+                        rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> 

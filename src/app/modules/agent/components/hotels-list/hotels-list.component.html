@@ -1,0 +1,45 @@
+<div class="card">
+    <p-table
+        [rows]="5"
+        [paginator]="true"
+        [value]="hotels"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Nombre</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Estado</th>
+                <th>Habitaciones habilitadas</th>
+                <th>Habitaciones inhabilitadas</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-hotel>
+            <tr class="font-normal">
+                <td>{{ hotel.name }}</td>
+                <td>{{ hotel.city }}</td>
+                <td>{{ hotel.address }}</td>
+                <td>
+                    <p-tag [value]="hotel.status" [severity]="getSeverity(hotel.status)" />
+                </td>
+                <td>
+                    <p-badge [value]="hotel.activateRooms"  badgeSize="xlarge" severity="success" />
+                </td>
+                <td>
+                    <p-badge [value]="hotel.innactivateRooms"  badgeSize="xlarge" severity="secondary" />
+                </td>
+                <td>
+                    <p-button
+                        pButton
+                        size="small"
+                        label="Gestionar"
+                        icon="pi pi-cog"
+                        (click)="selectHotel(hotel)"
+                        severity="secondary"
+                        rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> 
