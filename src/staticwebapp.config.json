@@ -1,7 +1,7 @@
 {
     "navigationFallback": {
         "rewrite": "/index.html",
-       "exclude": [
+        "exclude": [
             "/assets/*",
             "/static/*",
             "/*.js",
@@ -16,12 +16,8 @@
     },
     "routes": [
         {
-            "route": "/booking",
-            "rewrite": "/index.html"
-        },
-        {
             "route": "/*",
-            "rewrite": "/index.html"
+            "redirect": "/"
         }
     ]
 }
