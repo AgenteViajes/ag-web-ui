@@ -1,0 +1,19 @@
+{
+    "navigationFallback": {
+        "rewrite": "/index.html",
+        "exclude": [
+            "*.{css,scss,png,svg,jpg,gif,png}",
+            "assets/*"
+        ]
+    },
+    "routes": [
+        {
+            "route": "/booking",
+            "rewrite": "/index.html"
+        },
+        {
+            "route": "/*",
+            "rewrite": "/index.html"
+        }
+    ]
+}
