@@ -6,10 +6,12 @@ export const Constants = {
     storageKeys: {
         session: {
             user: 'userAuthData',
+            authToken: 'authToken',
             searchBkParams: 'searchBookingParams',
             bookingRoom: 'bookingRoomData',
             roomsFound: 'roomsFound',
             bookingConfirmed: 'bookingConfirmed',
+            agHotelSelect: 'agentHotelSelect'
         },
         local: {
 

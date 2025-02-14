@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { HotelDetailData } from '../../../../domains/interfaces/IHotelData';
 import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
@@ -9,11 +9,14 @@ import { Menu } from 'primeng/menu';
 import { RegisterHotelComponent } from "../../components/register-hotel/register-hotel.component";
 import { Dialog } from 'primeng/dialog';
 import { RoomsListComponent } from "../../components/rooms-list/rooms-list.component";
-import { DialogItems } from '../../../shared/interfaces/IDialogItems';
 import { DialogType } from '../../../shared/enums/EDialogType';
 import { RegisterRoomComponent } from "../../components/register-room/register-room.component";
 import { DialogAction } from '../../../shared/enums/EDialogAction';
 import { RoomDetailData } from '../../../../domains/interfaces/IRoomData';
+import { DialogItems } from '../../../shared/interfaces/IDialogItems';
+import { StoreService } from '../../../shared/services/store/store.service';
+import { Constants } from '../../../shared/constants/Constants';
+import { BookingService } from '../../../booking/services/booking/booking.service';
 
 @Component({
   selector: 'agent-hotel-details',
@@ -30,7 +33,7 @@ import { RoomDetailData } from '../../../../domains/interfaces/IRoomData';
   templateUrl: './hotel-details.component.html',
   styleUrl: './hotel-details.component.scss'
 })
-export class HotelDetailsComponent {
+export class HotelDetailsComponent implements OnInit{
 
   items: MenuItem[] = [];
   dialogTypes = DialogType;
@@ -43,20 +46,11 @@ export class HotelDetailsComponent {
     actionType: DialogAction.HOTEL_REGISTER
   })
   roomSelected = signal<RoomDetailData | undefined>(undefined);
-
-  hotelDetails:HotelDetailData = {
-    rating: 4,
-    rooms: [],
-    id: 'BG13421',
-    name: 'Coco House',
-    city: 'Bogota',
-    address: 'Kr12 #a12 -23',
-    innactivateRooms: 4,
-    activateRooms: 5,
-    status: StatusRoom.DISABLED
-  }
-
-  constructor(){
+  hotelDetails!:HotelDetailData;
+  constructor(
+    private storage: StoreService,
+    private bookingService: BookingService
+  ){
     this.items = [
       {
           label: 'Opciones',
@@ -79,6 +73,20 @@ export class HotelDetailsComponent {
       }
     ]
   }
+  ngOnInit(): void {
+    const sessionHotelData = this.storage.getItemSession(Constants.storageKeys.session.agHotelSelect);
+    if (sessionHotelData) {
+      this.bookingService.getHotelDetails(sessionHotelData.id).subscribe({
+        next:(response)=>{
+          this.hotelDetails = {
+            ...sessionHotelData,
+            rating: response.rating,
+            rooms: response.rooms
+          };
+        }
+      });
+    }
+  }
 
   updateHotelData(){
     this.showDialog = false;
@@ -96,7 +104,6 @@ export class HotelDetailsComponent {
   }
   enableFormUpdateRoom( roomUpdate: RoomDetailData){
     this.roomSelected.set(roomUpdate);
-    console.log('selecionado',this.roomSelected())
     this.dialogInfo.set({
       title: 'Actualizacion de datos',
       labelBtnAccept: 'Actualizar',
@@ -118,22 +125,36 @@ export class HotelDetailsComponent {
     this.showDialog = true;
   }
 
+  updateRoomData(){
+    if (this.roomSelected() !== undefined) {
+      this.hotelDetails.rooms = this.hotelDetails.rooms.map((room)=>{
+          if(this.roomSelected()?.id === room.id){
+            return this.roomSelected();
+          }else{
+            return room;
+          }
+        }) as RoomDetailData[];
+    }
+    this.showDialog = false;
+  }
+
+  registerRoomData(){
+    this.showDialog = false;
+  }
+
   dialogAccept(dialogUsed: DialogItems){
     switch(dialogUsed.actionType){
       case DialogAction.HOTEL_UPDATE:
         this.updateHotelData()
         break;
       case DialogAction.ROOM_UPDATE:
-        this.updateHotelData()
+        this.updateRoomData()
         break;
       case DialogAction.ROOM_REGISTER:
-        this.updateHotelData()
+        this.registerRoomData()
         break
     }
   }
-
-
-
   getSeverity(status: StatusRoom) {
     switch (status) {
       case StatusRoom.DISABLED:
