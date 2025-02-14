@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
-import customPreset from './customPreset';
+import { DecryptHttpIntercept } from './core/interceptor/decrypt-http-intercept';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet
+  ],
+  providers:[
+    DecryptHttpIntercept
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

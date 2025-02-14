@@ -1,10 +1,11 @@
+import { FormControlStatus } from "@angular/forms";
 import { Gender } from "../enums/EGender";
 
 export interface IGuestData {
     firstName: string;
     secondName: string;
     firstLastname: string;
-    secondlastname: string;
+    secondLastname: string;
     birthDate: string;
     gender: Gender;
     documentType: string;
@@ -18,6 +19,11 @@ export interface IEmergencyContactData extends Pick<
         'firstName'|
         'secondName'|
         'firstLastname'|
-        'secondlastname'|
+        'secondLastname'|
         'phoneNumber'
     >{}
+
+export interface GuestDataForm {
+    guestData: IGuestData,
+    statusForm: FormControlStatus
+}

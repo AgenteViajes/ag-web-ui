@@ -1,6 +1,6 @@
 <p-card class="list_booking_container">
     <div class="card">
-        <p-dataview #dv [value]="hotels()" [sortField]="sortField" [sortOrder]="sortOrder">
+        <p-dataview #dv [value]="roomsList()" [sortField]="sortField" [sortOrder]="sortOrder">
             <ng-template #header>
                 <div class="flex flex-col md:flex-row md:justify-between">
                     <p-select
@@ -19,17 +19,19 @@
                             class="flex flex-col sm:flex-row justify-content-between align-items-center w-full p-2 gap-4"
                             [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
                         >
-                            <div class="md rounded-border relative ">
-                                <img
-                                    class="block xl:block mx-auto rounded-border w-full h-9rem"
-                                    [src]="item.pathImg"
-                                    [alt]="item.name"
-                                />
-                            </div>
+                            @if (item.pathImg) {
+                                <div class="md rounded-border relative ">
+                                    <img
+                                        class="block xl:block mx-auto rounded-border w-full h-9rem"
+                                        [src]="item.pathImg"
+                                        [alt]="item.name"
+                                    />
+                                </div>
+                            }
                             <div class="flex flex-col md:flex-row justify-content-between md:align-items-center flex-grow-1">
                                 <div class="flex flex-row md:flex-col justify-between align-items-center gap-2">
                                     <div>
-                                        <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-3">{{ item.HotelName }}</div>
+                                        <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-3">{{ item.hotelName }}</div>
                                         <div class="font-medium text-secondary mt-2 text-sm">{{ item.address }}</div>
                                         <span class="font-medium text-secondary text-sm">{{ item.city }}</span>
                                     </div>
@@ -49,10 +51,10 @@
                                 <div class="flex flex-row md:items-end align-items-center gap-8">
                                     <div class="flex flex-column align-items-end">
                                         <span class="text-2xl font-semibold text-surface-900 dark:text-surface-0">{{
-                                            '$ ' + item.price
+                                            '$ ' + (item.price | currency:'USD':'': '1.0-0')
                                         }}</span>
                                         <span class="text-l font-normal text-surface-900 dark:text-surface-0">{{
-                                            '+ impuestos $ ' + item.taxes
+                                            '+ impuestos $ ' + (item.taxes  | currency:'USD':'': '1.0-0')
                                         }}</span>
                                     </div>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">

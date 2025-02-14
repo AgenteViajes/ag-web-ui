@@ -1,6 +1,6 @@
 export interface RoomFilter {
     startDate: string;
     endDate: string;
-    location: string;
+    city: string;
     peopleCount: number;
 }

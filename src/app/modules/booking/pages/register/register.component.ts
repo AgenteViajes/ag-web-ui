@@ -6,12 +6,17 @@ import { ButtonModule } from 'primeng/button';
 import { StepperModule } from 'primeng/stepper';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
-import { IGuestData } from '../../../../domains/interfaces/IGuestData';
+import { GuestDataForm, IEmergencyContactData, IGuestData } from '../../../../domains/interfaces/IGuestData';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
-import { Gender } from '../../../../domains/enums/EGender';
+import { BookingData, BookingSummaryData } from '../../../../domains/interfaces/IBookingTableData';
+import { StoreService } from '../../../shared/services/store/store.service';
+import { Constants } from '../../../shared/constants/Constants';
+import { Router } from '@angular/router';
+import { timeout } from 'rxjs';
+import { format } from '@formkit/tempo';
 
 
 @Component({
@@ -33,40 +38,28 @@ import { Gender } from '../../../../domains/enums/EGender';
   providers: [ConfirmationService, MessageService]
 })
 export class RegisterComponent implements OnInit {
+  bookingData!: BookingData;
   guestNumber!: number;
-  guestData!: IGuestData[];
+  guestData: GuestDataForm[] = [];
   showDgEmergency = false;
+  bookingComplete!: BookingSummaryData;
+  emergencyContact!: GuestDataForm;
+  titularId!: number;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private storage: StoreService,
+    private router: Router
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.guestNumber = 4;
-    this.guestData = this.createGuestListEmpty(this.guestNumber);
-  }
-
-  createGuestListEmpty(guestNumber: number): IGuestData[] {
-    const fillArray: IGuestData[] = [];
-    for (let index = 0; index < guestNumber; index++) {
-      fillArray.push(
-        {
-          firstName: '',
-          secondName: '',
-          firstLastname: '',
-          secondlastname: '',
-          documentType: '',
-          documentNumber: 0,
-          email: '',
-          phoneNumber: '',
-          birthDate: '',
-          gender: Gender.FEMALE
-        }
-      )
-    }
-    return fillArray;
+    this.bookingData = this.storage.getItemSession(Constants.storageKeys.session.bookingRoom);
+    this.guestNumber = this.bookingData?.guestNumber;
+    this.guestData = Array.from({length: this.guestNumber})
+    console.log(this.bookingData);
   }
 
   registerDataGuest(){
@@ -88,10 +81,55 @@ export class RegisterComponent implements OnInit {
             label: 'Confirmar'
         },
         accept: () => {
-          this.showDgEmergency = false;
-          this.messageService.add({ severity: 'info', summary: '¡Excelente!', detail: 'Tu reserva está lista. A tu correo llegará el detalle de la reserva', life: 5000 });
+          this.saveInfoBookingComplete()
         }
       });
+  }
+
+  updateDataGuest(event: GuestDataForm, index: number, isTitular: boolean){
+    this.guestData[index] = event;
+    if (event.guestData.birthDate) {
+      this.guestData[index].guestData.birthDate = format(event.guestData.birthDate, 'DD/MM/YYYY');
+    }
+    if (isTitular) {
+      this.titularId = event.guestData.documentNumber;
+    }
+  }
+
+  enableRegisterData(){
+    return !this.guestData.some((guestForm)=>{
+      return guestForm?.statusForm !== 'VALID';
+    })
+  }
+
+  getEmergencyContactInfo(event: GuestDataForm){
+    console.log(event)
+    this.emergencyContact= event;
+  }
+
+  saveInfoBookingComplete(){
+    const guests: IGuestData[] = this.guestData.map((guestForm) => {
+      return guestForm.guestData;
+    })
+    this.bookingComplete = {
+      ...this.bookingData,
+      titularId: this.titularId,
+      guest: guests,
+      emergencyContact: this.emergencyContact.guestData as IEmergencyContactData
+    }
+    this.storage.saveItemSession(Constants.storageKeys.session.bookingConfirmed, this.bookingComplete);
+    //llamar api q guarda los datos
+    this.showDgEmergency = false;
+    this.messageService.add(
+      {
+        severity: 'info',
+        summary: '¡Excelente!',
+        detail: 'Tu reserva está lista. A tu correo llegará el detalle de la reserva',
+        life: 3000
+      });
+    setTimeout(() => {
+      this.router.navigateByUrl('/booking/summary')
+    }, 3000);
   }
 
 }

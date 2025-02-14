@@ -3,10 +3,10 @@ import { RoomData } from "./IRoomData";
 
 export interface BookingTableData {
     idBooking: string;
-    titularName: string;
     guestNumber: number;
     startDate: string;
     endDate: string;
+    titularName: string;
     HotelName: string;
 }
 

@@ -4,6 +4,10 @@ import { DetailBookingComponent } from "../../components/detail-booking/detail-b
 import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { BookingData, BookingSummaryData } from '../../../../domains/interfaces/IBookingTableData';
+import { StoreService } from '../../../shared/services/store/store.service';
+import { Constants } from '../../../shared/constants/Constants';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +24,21 @@ import { ButtonModule } from 'primeng/button';
 })
 export class BookingSummaryComponent implements OnInit {
 
+  bookingSummary!: BookingSummaryData;
+
+  constructor(
+    private storage:StoreService,
+    private router: Router
+  ){}
+
   ngOnInit() {
-    
+    const sessionBooking= this.storage.getItemSession(Constants.storageKeys.session.bookingConfirmed);
+    if (sessionBooking) {
+      this.bookingSummary = sessionBooking as BookingSummaryData;
+    }
+  }
+
+  goToHome(){
+    this.router.navigateByUrl('/')
   }
 }

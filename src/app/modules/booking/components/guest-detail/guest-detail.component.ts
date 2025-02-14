@@ -23,7 +23,7 @@ export class GuestDetailComponent {
       this.guest.firstName,
       this.guest.secondName,
       this.guest.firstLastname,
-      this.guest.secondlastname
+      this.guest.secondLastname
     ]
     return fullName.join(' ')
   }

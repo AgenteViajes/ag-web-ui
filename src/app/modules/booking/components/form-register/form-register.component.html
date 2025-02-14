@@ -3,19 +3,37 @@
         @if (isGuest) {
             <span class="font-normal">Datos basicos</span>
             <div id="documentInputs" class="grid h-3rem my-3">
-                <p-inputgroup class="col-4">
+                <p-inputgroup class="col-6 h-3rem">
                     <p-inputgroup-addon>
                         <i class="pi pi-id-card"></i>
                     </p-inputgroup-addon>
                     <p-floatlabel variant="on">
-                        <input pInputText id="firstName" formControlName="firstName" />
-                        <label for="firstName">Tipo de documento</label>
+                        <p-select
+                            [required]="isGuest"
+                            [options]="typeDocuments"
+                            styleClass="font-normal"
+                            variant="filled"
+                            optionLabel="label"
+                            optionValue="value"
+                            inputId="documentType"
+                            formControlName="documentType"/>
+                        <label for="documentType">Tipo de documento</label>
                     </p-floatlabel>
                 </p-inputgroup>
-                <p-inputgroup class="col-8">
+                <p-inputgroup class="col-6">
                     <p-floatlabel variant="on">
-                        <input pInputText id="firstName" formControlName="firstName" />
-                        <label for="firstName">Número de documento</label>
+                        <p-inputnumber
+                            [required]="isGuest"
+                            id="documentNumber"
+                            formControlName="documentNumber"
+                            inputId="documentNumber"
+                            [useGrouping]="false"
+                            mode="decimal"
+                            required="true"
+                            maxlength="12"
+                            [min]="1"
+                        />
+                        <label for="documentNumber">Número de documento</label>
                     </p-floatlabel>
                     <p-inputgroup-addon>
                         <i class="pi pi-id-card"></i>
@@ -29,14 +47,18 @@
                     <i class="pi pi-user"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
+                    <input
+                    required="true"
+                        pInputText pattern="[a-zA-Z\s]+" id="firstName" formControlName="firstName" />
                     <label for="firstName">Primer Nombre</label>
                 </p-floatlabel>
             </p-inputgroup>
             <p-inputgroup class="col-6">
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
-                    <label for="firstName">Segundo Nombre</label>
+                    <input 
+                        required="false"
+                        pInputText pattern="[a-zA-Z\s]+" id="secondName" formControlName="secondName" />
+                    <label for="secondName">Segundo Nombre</label>
                 </p-floatlabel>
                 <p-inputgroup-addon>
                     <i class="pi pi-user"></i>
@@ -49,14 +71,23 @@
                     <i class="pi pi-user"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
-                    <label for="firstName">Primer apellido</label>
+                    <input
+                        required="true"
+                        [class]="guestForm.get('secondLastname')?.valid? 'ng-invalid ng-dirty':''"
+                        pInputText pattern="[a-zA-Z\s]+" id="firstLastname" formControlName="firstLastname" />
+                    <label for="firstLastname">Primer apellido</label>
                 </p-floatlabel>
             </p-inputgroup>
             <p-inputgroup class="col-6">
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
-                    <label for="firstName">Segundo apellido</label>
+                    <input
+                        required="true"
+                        pInputText
+                        pattern="[a-zA-Z\s]+"
+                        id="secondLastName"
+                        [class]="guestForm.get('secondLastname')?.valid? 'ng-invalid ng-dirty':''"
+                        formControlName="secondLastname" />
+                    <label for="secondLastName">Segundo apellido</label>
                 </p-floatlabel>
                 <p-inputgroup-addon>
                     <i class="pi pi-user"></i>
@@ -66,19 +97,35 @@
 
         @if (isGuest) {
             <div class="grid h-3rem my-3">
-                <p-inputgroup class="col-6">
+                <p-inputgroup class="col-6 flex">
                     <p-inputgroup-addon>
                         <i class="pi pi-user"></i>
                     </p-inputgroup-addon>
                     <p-floatlabel variant="on">
-                        <input pInputText id="firstName" formControlName="firstName" />
-                        <label for="firstName">Fecha de nacimiento</label>
+                        <p-datepicker
+                            [required]="isGuest"
+                            dateFormat="dd/mm/yy"
+                            class="w-full"
+                            styleClass="h-full w-full"
+                            inputId="birthDate"
+                            formControlName="birthDate"
+                            iconDisplay="input"
+                        />
+                        <label for="birthDate">Fecha de nacimiento</label>
                     </p-floatlabel>
                 </p-inputgroup>
                 <p-inputgroup class="col-6">
                     <p-floatlabel variant="on">
-                        <input pInputText id="firstName" formControlName="firstName" />
-                        <label for="firstName">Genero</label>
+                        <p-select
+                            [required]="isGuest"
+                            [options]="genderTypes"
+                            styleClass="font-normal"
+                            variant="filled"
+                            optionLabel="label"
+                            optionValue="value"
+                            inputId="gender"
+                            formControlName="gender"/>
+                        <label for="gender">Genero</label>
                     </p-floatlabel>
                     <p-inputgroup-addon>
                         <i class="pi pi-user"></i>
@@ -94,8 +141,8 @@
                     <i class="pi pi-at"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
-                    <label for="firstName">Email</label>
+                    <input pInputText [required]="isGuest" type="email" id="email" formControlName="email" />
+                    <label for="email">Email</label>
                 </p-floatlabel>
             </p-inputgroup>
         }
@@ -104,8 +151,17 @@
                     <i class="pi pi-phone"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel variant="on">
-                    <input pInputText id="firstName" formControlName="firstName" />
-                    <label for="firstName">Número de celular</label>
+                    <p-inputnumber
+                        formControlName="phoneNumber"
+                        inputId="phoneNumber"
+                        [useGrouping]="false"
+                        mode="decimal"
+                        required="true"
+                        maxlength="10"
+                        minlength="10"
+                        required="true"
+                    />
+                    <label for="phoneNumber">Número de celular</label>
                 </p-floatlabel>
             </p-inputgroup>
         </div>
