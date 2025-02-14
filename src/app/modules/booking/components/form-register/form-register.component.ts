@@ -32,7 +32,7 @@ import { Constants } from '../../../shared/constants/Constants';
 })
 export class FormRegisterComponent implements OnInit {
   @Input() isGuest = true;
-  @Input() guestData!: IGuestData;
+  @Input() guestData!: IGuestData | undefined;
   @Output() formDataGuest = new EventEmitter<GuestDataForm>();
   guestForm: FormGroup = new FormGroup({});
   typeDocuments = Constants.documentTypes;
