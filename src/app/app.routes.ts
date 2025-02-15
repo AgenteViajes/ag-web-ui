@@ -32,5 +32,9 @@ export const routes: Routes = [
         canActivate: [],
         component: AgentComponent,
         children: agentRoutes
+    },
+    {
+        path: '*',
+        redirectTo: 'booking'
     }
 ];
