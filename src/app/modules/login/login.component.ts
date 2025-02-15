@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit{
   logginUser(){
     this.authService.loginUser(this.loginForm.value).subscribe({
       next:(response)=>{
+        console.log('llega al login component', response)
         this.router.navigateByUrl('/agent');
       },
       error:()=>{
