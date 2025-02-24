@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GlobalService } from '../../../../core/services/global/global.service';
 import { RoomData } from '../../../../domains/interfaces/IRoomData';
 import { RoomFilter } from '../../../../domains/interfaces/IRoomFilter';

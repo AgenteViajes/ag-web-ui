@@ -1,6 +1,6 @@
 <p-card class="filters_card" header="Busca el alojamiento para tu proxima Aventura!!">
-    <form [formGroup]="filtersForm" (ngSubmit)="findbyFilters()" class="form_filters grid align-items-center">
-        <p-inputgroup class="sm:col-12 md:col">
+    <form [formGroup]="filtersForm" (ngSubmit)="findbyFilters()" class="form_filters md:gap-0 gap-2 grid align-items-center">
+        <p-inputgroup class="col-12 md:col">
             <p-floatlabel variant="in">
                 <p-select
                     pSelect
@@ -22,7 +22,7 @@
                 <i class="pi pi-map-marker"></i>
             </p-inputgroup-addon>
         </p-inputgroup>
-        <p-inputgroup class='sm:col-12 md:col'>
+        <p-inputgroup class='col-12 md:col'>
             <p-floatlabel variant="in">
                 <p-datepicker
                     class ="datePicker"
@@ -40,7 +40,7 @@
                 <label for="range_date">Rango de fechas</label>
             </p-floatlabel>
         </p-inputgroup>
-        <p-inputgroup class='sm:col-12 md:col'>
+        <p-inputgroup class='col-12 md:col'>
             <p-floatlabel variant="in">
                 <p-inputnumber 
                     id="people_number"
@@ -62,7 +62,7 @@
         <p-button
             size="large"
             fluid="true"
-            class='sm:col-12 md:col-fixed w-10rem flex justify-content-center'
+            class='col-12 w-full md:col-fixed md:w-10rem flex justify-content-center'
             label="Buscar"
             icon="pi pi-search"
             variant="text"
