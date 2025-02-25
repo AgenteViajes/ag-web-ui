@@ -29,6 +29,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/resources",
+                "output": "src/resources"
               }
             ],
             "styles": [
@@ -100,6 +105,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/resources",
+                "output": "src/resources"
               }
             ],
             "styles": [

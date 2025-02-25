@@ -26,6 +26,7 @@ import { agentConstants } from './constants/agentConstants';
 })
 export class AgentComponent implements OnInit{
   isHome = signal(true)
+  avatarUrl = '@resources/profile.png'
   breadCrumbItems = signal<MenuItem[]>([])
   user!: UserData
 

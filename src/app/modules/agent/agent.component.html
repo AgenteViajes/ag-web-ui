@@ -1,18 +1,14 @@
 
-<header>
-    <p-menubar>
-        <ng-template #start>
-        <h3 routerLink="/">Agency Travel</h3>
-        </ng-template>
-        <ng-template #end>
-            <div class="flex flex-row gap-4 align-items-center">
-                <p class="font-bold" >Hola, {{ user.user}} </p>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
-            </div>
-        </ng-template>
-    </p-menubar>
+<header class="">
+    <h3 routerLink="/">Agency Travel</h3>
+    <div class="flex flex-row gap-4 align-items-center">
+        <p class="font-bold" >Hola, {{ user.user}} </p>
+        <p-avatar image="src/resources/profile.png" class="mr-2" size="xlarge" shape="circle" />
+    </div>
 </header>
-@if (!isHome()) {
-    <agent-breadcrumb [items]="breadCrumbItems" ></agent-breadcrumb>
-}
-<router-outlet></router-outlet>
+<div class="mt-0" style="background-color: var(--p-orange-50);">
+    @if (!isHome()) {
+        <agent-breadcrumb [items]="breadCrumbItems" ></agent-breadcrumb>
+    }
+    <router-outlet></router-outlet>
+</div>
