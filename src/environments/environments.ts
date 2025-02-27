@@ -4,3 +4,4 @@ export const environments ={
     URL_HOTELS_MNGR: 'https://ag-web-app-hotels-mngr.azurewebsites.net/v1/api/hotels-mngr',
     URL_API_USERS: 'https://agency-travel.free.beeceptor.com',
     TOKEN_KEY: 'Lgwo6z0x8Pvnse0PvQwBPYXBTaGKdZzs242LWMvH3Pfi8QgNqY89iz1jro5bhkws'
+}
