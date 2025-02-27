@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -44,6 +44,7 @@ import { Constants } from '../../../shared/constants/Constants';
 export class DashboardComponent {
 
   showDgRegisterHotel = false;
+  updateHotels = signal(false);
   registerHotelinfo!: HotelDataForm;
 
    constructor(
@@ -71,6 +72,7 @@ export class DashboardComponent {
     }
     this.bookingService.registerHotel(dataRegister).subscribe({
       next: ()=>{
+        this.updateHotels.set(true);
         this.messageService.add(
           {
             severity: 'success',

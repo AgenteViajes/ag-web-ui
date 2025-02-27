@@ -1,6 +1,6 @@
 import { FormControlStatus } from "@angular/forms";
 import { StatusRoom } from "../enums/EStatusRoom";
-import { RoomDetailData } from "./IRoomData";
+import { IRoomBasic } from "./IRoomData";
 
 export interface HotelData {
     id: string;
@@ -10,16 +10,16 @@ export interface HotelData {
     innactivateRooms: number;
     activateRooms: number;
     status: StatusRoom;
+    rating: number;
 }
 
+export interface RegisterHotel extends Omit<HotelData, 'id'| 'innactivateRooms' | 'activateRooms'> {}
+
 export interface HotelDetailData extends HotelData {
-    rating: number;
-    rooms: RoomDetailData[];
+    rooms: IRoomBasic[];
 }
 
 export interface HotelDataForm {
     hotelData: RegisterHotel,
     statusForm: FormControlStatus
 }
-
-export interface RegisterHotel extends Omit<HotelDetailData, 'id'|'innactivateRooms'|'activateRooms'| 'rooms'> {}

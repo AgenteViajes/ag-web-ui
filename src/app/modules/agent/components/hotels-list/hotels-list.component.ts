@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -25,8 +25,9 @@ import { BookingService } from '../../../booking/services/booking/booking.servic
   templateUrl: './hotels-list.component.html',
   styleUrl: './hotels-list.component.scss'
 })
-export class HotelsListComponent implements OnInit {
+export class HotelsListComponent implements OnInit, OnChanges {
   @Output() selectedHotel = new EventEmitter<HotelData>();
+  @Input() updateList = false;
   hotels!: HotelData[];
 
   constructor(
@@ -34,13 +35,25 @@ export class HotelsListComponent implements OnInit {
   ){
 
   }
+
   ngOnInit(): void {
+    this.getHotelsList();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.updateList) {
+      this.getHotelsList();
+    }
+  };
+
+  getHotelsList(){
     this.bookingService.getHotels().subscribe({
       next: (response)=>{
         this.hotels = response;
       }
-    })
+    });
   }
+
   selectHotel(hotel: HotelData) {
     this.selectedHotel.emit(hotel);
   }
