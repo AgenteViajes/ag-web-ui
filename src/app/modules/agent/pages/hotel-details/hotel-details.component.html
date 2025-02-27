@@ -41,10 +41,10 @@
     <div class="flex items-center gap-4 mb-4">
         @switch (dialogInfo().type) {
             @case (dialogTypes.FORM_HOTEL) {
-                <register-hotel [preloadData]="hotelDetails"></register-hotel>
+                <register-hotel [preloadData]="hotelDetails" (formDataHotel)="saveHotelData($event)"></register-hotel>
             }
             @case (dialogTypes.FORM_ROOM) {
-                <register-room [preloadData]="roomSelected()"></register-room>
+                <register-room [preloadData]="roomSelected()" (formDataRoom)="saveRoomData($event)"></register-room>
             }
             @default {
                 <register-hotel></register-hotel>
@@ -56,3 +56,4 @@
         <p-button pButton size="small" [label]="dialogInfo().labelBtnAccept" (onClick)="dialogAccept(dialogInfo())" />
     </div>
 </p-dialog>
+<p-toast />

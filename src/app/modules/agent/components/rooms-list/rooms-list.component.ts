@@ -8,8 +8,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { StatusRoom } from '../../../../domains/enums/EStatusRoom';
-import { HotelData } from '../../../../domains/interfaces/IHotelData';
-import { RoomDetailData } from '../../../../domains/interfaces/IRoomData';
+import { IRoomBasic } from '../../../../domains/interfaces/IRoomData';
 
 @Component({
   selector: 'agent-rooms-list',
@@ -27,14 +26,14 @@ import { RoomDetailData } from '../../../../domains/interfaces/IRoomData';
 })
 export class RoomsListComponent {
 
-  @Output() selectedRoom = new EventEmitter<RoomDetailData>()
+  @Output() selectedRoom = new EventEmitter<IRoomBasic>()
 
-  @Input() rooms!: RoomDetailData[];
+  @Input() rooms!: IRoomBasic[];
   
     constructor(private router: Router){
   
     }
-    selectRoom(room: RoomDetailData) {
+    selectRoom(room: IRoomBasic) {
       this.selectedRoom.emit(room);
     }
   

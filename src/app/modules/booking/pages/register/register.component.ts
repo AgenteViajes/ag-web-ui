@@ -16,6 +16,7 @@ import { StoreService } from '../../../shared/services/store/store.service';
 import { Constants } from '../../../shared/constants/Constants';
 import { Router } from '@angular/router';
 import { format } from '@formkit/tempo';
+import { BookingService } from '../../services/booking/booking.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
+    private bookingService: BookingService,
     private messageService: MessageService,
     private storage: StoreService,
     private router: Router
@@ -114,19 +116,33 @@ export class RegisterComponent implements OnInit {
       guest: guests,
       emergencyContact: this.emergencyContact.guestData as IEmergencyContactData
     }
-    this.storage.saveItemSession(Constants.storageKeys.session.bookingConfirmed, this.bookingComplete);
-    //llamar api q guarda los datos
-    this.showDgEmergency = false;
-    this.messageService.add(
-      {
-        severity: 'info',
-        summary: '¡Excelente!',
-        detail: 'Tu reserva está lista. A tu correo llegará el detalle de la reserva',
-        life: 3000
-      });
-    setTimeout(() => {
-      this.router.navigateByUrl('/booking/summary')
-    }, 3000);
+    this.bookingService.registerBooking(this.bookingComplete).subscribe({
+      next:(response)=>{
+        this.bookingComplete.idBooking = response.idBooking;
+        this.storage.saveItemSession(Constants.storageKeys.session.bookingConfirmed, this.bookingComplete);
+        this.showDgEmergency = false;
+        this.messageService.add(
+          {
+            severity: 'info',
+            summary: '¡Excelente!',
+            detail: 'Tu reserva está lista. A tu correo llegará el detalle de la reserva',
+            life: 3000
+          });
+        setTimeout(() => {
+          this.router.navigateByUrl('/booking/summary')
+        }, 3000);
+      },
+      error:(err)=>{
+        this.showDgEmergency = false;
+        this.messageService.add(
+          {
+            severity: 'warn',
+            summary: '¡Lo siento!',
+            detail: 'Tu reserva no se registro correctamente',
+            life: 3000
+          });
+      }
+    });
   }
 
 }

@@ -42,15 +42,15 @@ export class ListComponent implements OnInit {
   @Output() roomSelected= new EventEmitter<RoomData>();
   sortOptions!: SelectItem[];
   sortOrder!: number;
-  sortField!: string;
+  sortField: string = 'price';
   sortKey: any;
 
   constructor() {}
 
   ngOnInit() {
     this.sortOptions = [
-      { label: 'Price High to Low', value: '!price' },
-      { label: 'Price Low to High', value: 'price' },
+      { label: 'Mayor a menor precio', value: -1 },
+      { label: 'Menor a mayor precio', value: 1 },
     ];
   }
 
@@ -59,7 +59,7 @@ export class ListComponent implements OnInit {
   }
 
   onSortChange(event: any){
-
+    this.sortOrder = event.value;
   }
 
 }

@@ -12,7 +12,7 @@
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel value="0">
-                <hotels-list (selectedHotel)="showHotelDetails($event)"></hotels-list>
+                <hotels-list [updateList]="updateHotels()" (selectedHotel)="showHotelDetails($event)"></hotels-list>
                 <div class="flex mt-3 justify-content-end">
                     <p-button
                         label="Registrar Hotel"
